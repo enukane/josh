@@ -2,6 +2,7 @@
 #include <string.h>
 #include <unistd.h>
 #include <regex.h>
+#include <stdint.h>
 
 #include <jansson.h>
 

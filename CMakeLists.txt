@@ -38,3 +38,66 @@ TARGET_LINK_LIBRARIES(${JOSH} ${JANSSON_LIBRARIES})
 
 # install
 install(TARGETS ${JOSH} DESTINATION bin)
+
+# tests
+include(CTest)
+
+## simple call
+add_test(NAME simple-call
+	COMMAND josh
+)
+
+## generate object
+add_test(NAME simple-object
+	COMMAND josh foo=0 bar=1 baz=2
+)
+set_tests_properties(simple-object
+	PROPERTIES
+	PASS_REGULAR_EXPRESSION "\\{\"foo\":0,\"bar\":1,\"baz\":2\\}"
+)
+
+## generate object with pretty print
+add_test(NAME simple-object-pretty
+	COMMAND josh -p foo=0 bar=1 baz=2
+)
+
+## generate array
+add_test(NAME simple-array
+	COMMAND josh -a 0 1 2 3 4 5
+)
+set_tests_properties(simple-array
+	PROPERTIES
+	PASS_REGULAR_EXPRESSION "\\[0,1,2,3,4,5\\]"
+)
+
+## generate array with pretty print
+add_test(NAME simple-array-pretty
+	COMMAND josh -p -a 0 1 2 3 4 5
+)
+
+## boolean is parsed
+add_test(NAME boolean-as-is
+	COMMAND josh -a true false
+)
+set_tests_properties(boolean-as-is
+	PROPERTIES
+	PASS_REGULAR_EXPRESSION "\\[true,false\\]"
+)
+
+## booloff is working
+add_test(NAME boolean-off
+	COMMAND josh -B -a true false
+)
+set_tests_properties(boolean-off
+	PROPERTIES
+	PASS_REGULAR_EXPRESSION "\\[\"true\",\"false\"\\]"
+)
+
+## nested working
+add_test(NAME nested-object-and-array
+	COMMAND josh foo={\"bar\":\"baz\"} array=[0,1,2,3]
+)
+set_tests_properties(nested-object-and-array
+	PROPERTIES
+	PASS_REGULAR_EXPRESSION "\\{\"foo\":\\{\"bar\":\"baz\"\\},\"array\":\\[0,1,2,3\\]\\}"
+)

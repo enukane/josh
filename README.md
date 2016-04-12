@@ -1,3 +1,4 @@
+[![Build Status](https://drone.io/github.com/enukane/josh/status.png)](https://drone.io/github.com/enukane/josh/latest)
 # josh
 
 json output shell command inspired by jpmens/jo, but it's tiny and MIT License.

@@ -4,9 +4,9 @@ json output shell command inspired by jpmens/jo, but it's tiny and MIT License.
 
 - Almost same interface as jo
 - Won't accept stdin.
-- No nested element
+- No one-line nested element (using '[]' to express hash)
 
-pretty pring
+pretty print
 ```
 % josh -p name=josh year=99 active=true
 {
